@@ -20,6 +20,9 @@ jobs:
       # Checkout the code as the first step.
       - checkout
 
+      - run:
+          name: Navigate to project directorycd
+          command: cd TP1
       # Use mvn clean and package as the standard maven build phase
       - run:
           name: Build
