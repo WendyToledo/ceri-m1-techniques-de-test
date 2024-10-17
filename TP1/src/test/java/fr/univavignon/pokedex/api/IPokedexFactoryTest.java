@@ -20,13 +20,16 @@ public class IPokedexFactoryTest {
 	@Mock
 	private IPokemonFactory pokemonFacto;
 	
+	@Mock
 	private IPokedexFactory pokedexFacto;
+	
+	private IPokedex pokedex;
 	
 	@Before
 	public void setUp() {
 		 MockitoAnnotations.initMocks(this);
 		
-		pokedexFacto = (provider, factory)-> new IPokedex() {
+		when(pokedexFacto.createPokedex(metadata, pokemonFacto)).thenReturn(new IPokedex() {
 			 @Override
             public int size() {
                 return 0;
@@ -40,7 +43,7 @@ public class IPokedexFactoryTest {
             @Override
             public Pokemon getPokemon(int id) throws PokedexException {
                 if (id < 0 || id >150) throw new PokedexException("Invalid ID");
-                return factory.createPokemon(id, 613, 64, 4000, 4);
+                return pokemonFacto.createPokemon(id, 613, 64, 4000, 4);
             }
 
             @Override
@@ -55,28 +58,27 @@ public class IPokedexFactoryTest {
 
             @Override
             public PokemonMetadata getPokemonMetadata(int index) throws PokedexException {
-                return provider.getPokemonMetadata(index);
+                return metadata.getPokemonMetadata(index);
             }
 
             @Override
             public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
-                return factory.createPokemon(index, cp, hp, dust, candy);
+                return pokemonFacto.createPokemon(index, cp, hp, dust, candy);
             }
-		};
+		});
 	}
 	
 	@Test
-	public void testCreatePokedexBulbizarre() {
-		IPokedex pokedex = pokedexFacto.createPokedex(metadata, pokemonFacto);
+	public void testCreatePokedex() {
+		pokedex = pokedexFacto.createPokedex(metadata, pokemonFacto);
 		
 		assertNotNull(pokedex);
 		assertEquals(0, pokedex.size());
 	}
 	
 	@Test
-	public void testCreatePokedexIsCall() throws PokedexException{
-		when(pokedexFacto.createPokedex(metadata, pokemonFacto));
-		
+	public void testCreatePokedexIsCall(){
+		pokedex = pokedexFacto.createPokedex(metadata, pokemonFacto);
 		verify(pokedexFacto, times(1)).createPokedex(metadata, pokemonFacto);
 	}
 }

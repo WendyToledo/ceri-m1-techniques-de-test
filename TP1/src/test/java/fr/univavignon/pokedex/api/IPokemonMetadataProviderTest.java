@@ -11,16 +11,17 @@ public class IPokemonMetadataProviderTest{
 	private IPokemonMetadataProvider pokemonMetadataProvider;
 	
 	private PokemonMetadata bulbi;
-	private PokemonMetadata aqua;
 	
 	@Before
 	public void setup() {
+		
+		pokemonMetadataProvider = mock(IPokemonMetadataProvider.class);
+		
 		bulbi = new PokemonMetadata(0,"Bulbizarre", 126, 126, 90);
-		aqua = new PokemonMetadata(133,"Aquali", 186, 168, 260);
 	}
 	
 	@Test
-	public void testGetPokemonMetadataBulbiIf0() throws PokedexException{
+	public void testGetPokemonMetadataBulbiIfIdEquals0() throws PokedexException{
 		when(pokemonMetadataProvider.getPokemonMetadata(0)).thenReturn(bulbi);
 		
 		PokemonMetadata metadata = pokemonMetadataProvider.getPokemonMetadata(0);
@@ -35,9 +36,11 @@ public class IPokemonMetadataProviderTest{
 	
 	@Test
 	public void testGetPokemonMetadataIsCall() throws PokedexException{
-		when(pokemonMetadataProvider.getPokemonMetadata(133)).thenReturn(aqua);
+		when(pokemonMetadataProvider.getPokemonMetadata(0)).thenReturn(bulbi);
 		
-		verify(pokemonMetadataProvider, times(1)).getPokemonMetadata(133);
+		pokemonMetadataProvider.getPokemonMetadata(0);
+		
+		verify(pokemonMetadataProvider, times(1)).getPokemonMetadata(0);
 	}
 	
 	@Test(expected = PokedexException.class)

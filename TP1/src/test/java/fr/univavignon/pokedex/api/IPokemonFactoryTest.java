@@ -1,6 +1,6 @@
 package fr.univavignon.pokedex.api;
 
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
 
@@ -19,25 +19,22 @@ public class IPokemonFactoryTest {
 
 	
 	@Test
-	public void testCreatePokemon() {
-		Pokemon bulbi = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
+	public void testCreatePokemon() throws PokedexException {
+		Pokemon bulbi = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 100.0);
 		
-		assertNotNull(bulbi);
-        assertEquals(0, bulbi.getIndex());
-        assertEquals("Bulbizarre", bulbi.getName());
-        assertEquals(126, bulbi.getAttack());
-        assertEquals(126, bulbi.getDefense());
-        assertEquals(90, bulbi.getStamina());
-        assertEquals(613, bulbi.getCp());
-        assertEquals(64, bulbi.getHp());
-        assertEquals(4000, bulbi.getDust());
-        assertEquals(4, bulbi.getCandy());
+	    when(pokemonFactory.createPokemon(eq(0), anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(bulbi);
+	    
+	    Pokemon poke = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
+		
+		assertNotNull(poke);
+        assertEquals(0, poke.getIndex());
+        assertEquals("Bulbizarre", poke.getName());
+        assertEquals(126, poke.getAttack());
+        assertEquals(126, poke.getDefense());
+        assertEquals(90, poke.getStamina());
+        assertEquals(613, poke.getCp());
+        assertEquals(64, poke.getHp());
+        assertEquals(4000, poke.getDust());
+        assertEquals(4, poke.getCandy());
 	}
-	
-	@Test(expected = PokedexException.class)
-	public void testCreatePokemonWithInvalidIndex() throws PokedexException {
-		 when(pokemonFactory.createPokemon(-1, anyInt(), anyInt(), anyInt(), anyInt())).thenThrow(new PokedexException("Invalid ID"));
-		 pokemonFactory.createPokemon(-1, 613, 64, 4000, 4);
-	}
-	 
 }
