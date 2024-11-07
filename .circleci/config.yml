@@ -27,7 +27,8 @@ jobs:
       - run:
           name: Unit Tests
           command: cd TP1 && mvn test
-
+orbs:
+  codecov: codecov/codecov@4.0.1
 # Orchestrate jobs using workflows
 # See: https://circleci.com/docs/workflows/ & https://circleci.com/docs/configuration-reference/#workflows
 workflows:
@@ -38,3 +39,8 @@ workflows:
       branch: master
     jobs:
       - build-and-test
+
+upload-to-codecov:
+    jobs:
+      - checkout 
+      - codecov/upload
