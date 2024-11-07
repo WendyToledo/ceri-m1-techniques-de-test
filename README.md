@@ -37,6 +37,9 @@ Si vous ne spécifiez pas de tag, le dernier commit à la date-heure de la fin d
 [^1]: Si vous n’êtes vraiment pas à l’aise avec cet outil nous vous conseillons quand même vivement de vous y mettre.
 
 ## Badges
+
 Toledo Wendy
+
 M1 ILSEN ALT
+
 CircleCI: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/WendyToledo/ceri-m1-techniques-de-test/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/WendyToledo/ceri-m1-techniques-de-test/tree/master)
