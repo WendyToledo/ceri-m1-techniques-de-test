@@ -40,7 +40,7 @@ workflows:
     jobs:
       - build-and-test
 
-upload-to-codecov:
+  upload-to-codecov:
     jobs:
       - checkout 
       - codecov/upload
