@@ -16,7 +16,7 @@ jobs:
 
       - run:
           name: Run Unit Tests with Jacoco and generate coverage report
-          command: cd TP1 && mvn clean test jacoco:report
+          command: cd TP1 && mvn clean test/java/fr/univavignon/pokedex/api jacoco:report
 
       - run:
           name: Upload coverage to Codecov
