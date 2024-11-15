@@ -25,7 +25,7 @@ public class IPokemonTrainerFactoryTest {
         
         when(pokeFacto.createPokedex(metadata, facto)).thenReturn(poke);
         
-        factory = new PokemonTrainerFactory();
+        factory = new PokemonTrainerFactory(metadata, facto);
         
 	}	
 	
@@ -44,5 +44,7 @@ public class IPokemonTrainerFactoryTest {
 		assertEquals(name, createdTrainer.getName());
 		assertEquals(team, createdTrainer.getTeam());
 		assertEquals(poke, createdTrainer.getPokedex());
+		
+		verify(pokeFacto).createPokedex(metadata, facto);
 	}
 }
