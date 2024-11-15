@@ -44,4 +44,8 @@ M1 ILSEN ALT
 
 CircleCI: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/WendyToledo/ceri-m1-techniques-de-test/tree/master.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/WendyToledo/ceri-m1-techniques-de-test/tree/master)
 
-Coverage: [![codecov](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test/graph/badge.svg?token=881YE3LUFU)](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test)
+CodeCov: [![codecov](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test/graph/badge.svg?token=881YE3LUFU)](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test)
+
+Checkstyle: [![Checkstyle](https://github.com/WendyToledo/ceri-m1-techniques-de-test/actions/workflows/ci.yml/badge.svg)]
+
+
