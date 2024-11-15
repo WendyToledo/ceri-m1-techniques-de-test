@@ -43,6 +43,8 @@ public class IPokedexTest {
         pokedex.addPokemon(bulbi);
         pokedex.addPokemon(aqua);
 
+        assertEquals(2, pokedex.getPokemons().size());
+        
         Pokemon bulbiFind = pokedex.getPokemon(0);
         assertNotNull(bulbiFind);
         assertEquals("Bulbizarre", bulbiFind.getName());
