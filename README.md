@@ -46,6 +46,10 @@ CircleCI: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/WendyToledo/c
 
 CodeCov: [![codecov](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test/graph/badge.svg?token=881YE3LUFU)](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test)
 
-Checkstyle: [![Checkstyle](https://github.com/WendyToledo/ceri-m1-techniques-de-test/actions/workflows/ci.yml/badge.svg)]
+Checkstyle: [![Checkstyle](https://circleci.com/gh/WendyToledo/ceri-m1-techniques-de-test/tree/main.svg?style=shield)](https://circleci.com/gh/WendyToledo/ceri-m1-techniques-de-test)
+
+
+
+
 
 
