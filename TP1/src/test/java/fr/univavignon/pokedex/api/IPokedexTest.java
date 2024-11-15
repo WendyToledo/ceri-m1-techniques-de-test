@@ -82,7 +82,7 @@ public class IPokedexTest {
 
     @Test
     public void testGetPokemonsSorted() {
-        pokedex.addPokemon(bulbi);
+    	pokedex.addPokemon(bulbi);
         pokedex.addPokemon(aqua);
 
         Comparator<Pokemon> comparator = Comparator.comparingInt(Pokemon::getCp);
