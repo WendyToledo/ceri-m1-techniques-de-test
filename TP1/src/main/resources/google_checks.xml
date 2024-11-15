@@ -8,7 +8,6 @@
         <module name="OuterTypeFilename"/>
         <module name="RegexpHeader">
             <property name="header" value=""/>
-            <property name="allowBlankLines" value="true"/>
         </module>
         <module name="AvoidStarImport"/>
         <module name="UnusedImports"/>
@@ -47,4 +46,3 @@
         <property name="max" value="100"/>
     </module>
 </module>
-
