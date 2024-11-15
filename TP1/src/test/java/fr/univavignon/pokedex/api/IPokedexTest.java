@@ -66,7 +66,12 @@ public class IPokedexTest{
 	 @Test
 	    public void testGetPokemonInvalidId() throws PokedexException {
 	        when(pokedex.getPokemon(-1)).thenThrow(new PokedexException("Invalid ID"));
-	        pokedex.getPokemon(-1);
+	        PokedexException exception = assertThrows(PokedexException.class, () -> {
+				pokedex.getPokemon(-1);
+			});
+	        
+	        assertEquals("Invalid ID", exception.getMessage());
+	        
 	    }
 	 
 	 @Test
@@ -81,6 +86,7 @@ public class IPokedexTest{
 	        when(pokedex.getPokemons(comparator)).thenReturn(sortedPokemons);
 
 	        List<Pokemon> result = pokedex.getPokemons(comparator);
+	        
 	        assertNotNull(result);
 	        assertEquals(2, result.size());
 	        assertEquals("Aquali", result.get(0).getName());
