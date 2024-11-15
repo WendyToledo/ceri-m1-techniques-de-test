@@ -6,8 +6,8 @@
 
     <groupId>fr.univ-avignon.tt</groupId>
     <artifactId>TP1</artifactId>
+    <packaging>jar</packaging>  
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
     <name>TP1</name>
 
     <build>
@@ -63,19 +63,17 @@
 
     <dependencies>
           <dependency>
-             <groupId>junit</groupId>
-             <artifactId>junit</artifactId>
-             <version>4.13.2</version>
-             <scope>test</scope>
+                  <groupId>org.junit.jupiter</groupId>
+                  <artifactId>junit-jupiter-api</artifactId>
+                  <version>5.7.0</version>
+                  <scope>test</scope>
          </dependency>
-
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter-engine</artifactId>
-            <version>5.7.0</version>
-            <scope>test</scope>
-        </dependency>
-        
+         <dependency>
+                  <groupId>org.junit.jupiter</groupId>
+                  <artifactId>junit-jupiter-engine</artifactId>
+                  <version>5.7.0</version>
+                  <scope>test</scope>
+         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-junit-jupiter</artifactId>
