@@ -3,12 +3,14 @@
     "https://checkstyle.org/dtds/configuration_1_3.dtd">
 
 <module name="Checker">
+    <!-- Vérifie un header de fichier spécifique -->
+    <module name="RegexpHeader">
+        <property name="header" value=""/>
+    </module>
+
     <!-- Définit le style de code Google -->
     <module name="TreeWalker">
         <module name="OuterTypeFilename"/>
-        <module name="RegexpHeader">
-            <property name="header" value=""/>
-        </module>
         <module name="AvoidStarImport"/>
         <module name="UnusedImports"/>
         <module name="RedundantImport"/>
