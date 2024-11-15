@@ -25,8 +25,8 @@ public class IPokedexTest {
         
         aqua = new Pokemon(133, "Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
         bulbi = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 400, 4, 56);
-    
-        pokedex = new Pokedex(metadata, facto);
+        
+        pokedex = Mockito.mock(IPokedex.class);
         
         when(pokedex.size()).thenReturn(2);
         when(pokedex.getPokemon(0)).thenReturn(bulbi);
