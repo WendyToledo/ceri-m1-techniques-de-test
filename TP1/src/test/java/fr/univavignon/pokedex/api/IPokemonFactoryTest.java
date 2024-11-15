@@ -8,32 +8,24 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.BeforeEach;
 
 public class IPokemonFactoryTest {
-	
-
-	IPokemonFactory pokemonFactory;
-	
-	IPokemonMetadataProvider metadata;
-	Pokemon bulbi;
-	
-	@BeforeEach
-	public void setUp() {
-		metadata = mock(IPokemonMetadataProvider.class);
-		
+    
+    IPokemonFactory pokemonFactory;
+    IPokemonMetadataProvider metadata;
+    Pokemon bulbi;
+    
+    @BeforeEach
+    public void setUp() {
+        metadata = mock(IPokemonMetadataProvider.class);
         bulbi = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 400, 4, 56);
-		
-		pokemonFactory = new PokemonFactory(metadata);
-		
-	}
+        pokemonFactory = new PokemonFactory(metadata);
+    }
 
-	
-	@Test
-	public void testCreatePokemon() throws PokedexException {
-		
-	    when(pokemonFactory.createPokemon(eq(0), anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(bulbi);
-	    
-	    Pokemon poke = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
-		
-		assertNotNull(poke);
+    @Test
+    public void testCreatePokemon() throws PokedexException {
+        when(metadata.getPokemonMetadata(eq(0))).thenReturn(new PokemonMetadata(0, "Bulbizarre", 126, 126, 90));
+        Pokemon poke = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
+        
+        assertNotNull(poke);
         assertEquals(0, poke.getIndex());
         assertEquals("Bulbizarre", poke.getName());
         assertEquals(126, poke.getAttack());
@@ -43,5 +35,5 @@ public class IPokemonFactoryTest {
         assertEquals(64, poke.getHp());
         assertEquals(4000, poke.getDust());
         assertEquals(4, poke.getCandy());
-	}
+    }
 }
