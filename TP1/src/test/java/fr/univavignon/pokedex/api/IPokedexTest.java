@@ -12,12 +12,12 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class IPokedexTest{
 	
-	private IPokedex pokedex;
+	private Pokedex pokedex;
 	private Pokemon aqua, bulbi;
 	
 	@BeforeEach
 	public void setup() throws PokedexException {
-		pokedex = mock(IPokedex.class);
+		pokedex = mock(Pokedex.class);
 		
 		aqua = new Pokemon(133,"Aquali", 186, 168, 260, 2729, 202, 5000, 4, 100);
 		bulbi = new Pokemon(0,"Bulbizarre", 126, 126, 90, 613, 64, 400, 4, 56);
