@@ -65,12 +65,17 @@ public class IPokedexTest{
 	
 	 @Test
 	    public void testGetPokemonInvalidId() throws PokedexException {
-	        when(pokedex.getPokemon(-1)).thenThrow(new PokedexException("Invalid ID"));
-	        PokedexException exception = assertThrows(PokedexException.class, () -> {
+		 when(pokedex.getPokemon(-1)).thenThrow(new PokedexException("Invalid Pokémon ID: -1"));
+			PokedexException exception = assertThrows(PokedexException.class, () -> {
 				pokedex.getPokemon(-1);
 			});
-	        
-	        assertEquals("Invalid ID", exception.getMessage());
+			assertEquals("Invalid Pokémon ID: -1", exception.getMessage());
+		
+			when(pokedex.getPokemon(999)).thenThrow(new PokedexException("Invalid Pokémon ID: 999"));
+			exception = assertThrows(PokedexException.class, () -> {
+				pokedex.getPokemon(999);
+			});
+			assertEquals("Invalid Pokémon ID: 999", exception.getMessage());
 	        
 	    }
 	 
@@ -92,5 +97,20 @@ public class IPokedexTest{
 	        assertEquals("Aquali", result.get(0).getName());
 	        assertEquals("Bulbizarre", result.get(1).getName());
 		}
+	 
+	 @Test
+	 public void testGetPokemonsSorted() {
+	     Comparator<Pokemon> comparator = Comparator.comparingInt(Pokemon::getCp);
+	   
+	     pokedex.addPokemon(bulbi);
+	     pokedex.addPokemon(aqua);
+
+	     List<Pokemon> sortedPokemons = pokedex.getPokemons(comparator);
+	     
+	     assertNotNull(sortedPokemons);
+	     assertEquals(2, sortedPokemons.size());
+	     assertEquals("Aquali", sortedPokemons.get(0).getName());
+	     assertEquals("Bulbizarre", sortedPokemons.get(1).getName());
+	 }
 	
 }
