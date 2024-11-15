@@ -99,18 +99,21 @@ public class IPokedexTest{
 		}
 	 
 	 @Test
-	 public void testGetPokemonsSorted() {
-	     Comparator<Pokemon> comparator = Comparator.comparingInt(Pokemon::getCp);
-	   
-	     pokedex.addPokemon(bulbi);
-	     pokedex.addPokemon(aqua);
+	public void testGetPokemonsSorted() throws PokedexException {
+	    Comparator<Pokemon> comparator = Comparator.comparingInt(Pokemon::getCp);
+	
+	    List<Pokemon> sortedPokemons = new ArrayList<>();
+	    sortedPokemons.add(aqua);
+	    sortedPokemons.add(bulbi);
+	
+	    when(pokedex.getPokemons(comparator)).thenReturn(sortedPokemons);
+	
+	    List<Pokemon> result = pokedex.getPokemons(comparator);
 
-	     List<Pokemon> sortedPokemons = pokedex.getPokemons(comparator);
-	     
-	     assertNotNull(sortedPokemons);
-	     assertEquals(2, sortedPokemons.size());
-	     assertEquals("Aquali", sortedPokemons.get(0).getName());
-	     assertEquals("Bulbizarre", sortedPokemons.get(1).getName());
+	    assertNotNull(result);
+	    assertEquals(2, result.size());
+	    assertEquals("Aquali", result.get(0).getName());
+	    assertEquals("Bulbizarre", result.get(1).getName());
 	 }
 	
 }
