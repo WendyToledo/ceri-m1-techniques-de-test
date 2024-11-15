@@ -85,7 +85,7 @@ public class IPokedexTest {
     	pokedex.addPokemon(bulbi);
         pokedex.addPokemon(aqua);
 
-        Comparator<Pokemon> comparator = Comparator.comparingInt(Pokemon::getCp);
+        Comparator<Pokemon> comparator = Comparator.comparingInt(Pokemon::getCp).reversed();
         List<Pokemon> sortedPokemons = pokedex.getPokemons(comparator);
 
         assertNotNull(sortedPokemons);
