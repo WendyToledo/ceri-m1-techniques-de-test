@@ -10,19 +10,26 @@ import org.junit.jupiter.api.BeforeEach;
 public class IPokemonFactoryTest {
 	
 
-	private IPokemonFactory pokemonFactory;
+	IPokemonFactory pokemonFactory;
+	
+	IPokemonMetadataProvider metadata;
+	Pokemon bulbi;
 	
 	@BeforeEach
 	public void setUp() {
-		pokemonFactory = mock(IPokemonFactory.class);
+		metadata = mock(IPokemonMetadataProvider.class);
+		
+        bulbi = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 400, 4, 56);
+		
+		pokemonFactory = new PokemonFactory(metadata);
+		
 	}
 
 	
 	@Test
 	public void testCreatePokemon() throws PokedexException {
-		Pokemon bulbi = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 4000, 4, 100.0);
 		
-	    when(pokemonFactory.createPokemon(eq(0), anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(bulbi);
+	    when(pokemonFactory.createPokemon(eq(0), eq(613), eq(64), eq(4000), eq(4))).thenReturn(bulbi);
 	    
 	    Pokemon poke = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
 		

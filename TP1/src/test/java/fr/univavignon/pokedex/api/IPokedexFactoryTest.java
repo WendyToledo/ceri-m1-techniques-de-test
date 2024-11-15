@@ -9,8 +9,10 @@ import org.junit.jupiter.api.Test;
 public class IPokedexFactoryTest {
 
     private IPokedexFactory pokedexFacto;
+    
     private IPokemonMetadataProvider metadata;
     private IPokemonFactory pokemonFacto;
+    
     private IPokedex pokedex;
 
     @BeforeEach
