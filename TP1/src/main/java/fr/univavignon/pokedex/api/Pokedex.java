@@ -6,6 +6,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Pokedex implements IPokedex{
+	
 	private final IPokemonMetadataProvider metadataProvider;
     private final IPokemonFactory pokemonFactory;
     private final List<Pokemon> pokemons;
