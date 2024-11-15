@@ -46,7 +46,12 @@ public class IPokemonMetadataProviderTest{
 	@Test
 	public void testGetPokemonMetadataInvalidIndex() throws PokedexException{
 		when(pokemonMetadataProvider.getPokemonMetadata(-1)).thenThrow(new PokedexException("Invalid ID"));
-		pokemonMetadataProvider.getPokemonMetadata(-1);
+		
+		PokedexException exception = assertThrows(PokedexException.class, () -> {
+			 pokemonMetadataProvider.getPokemonMetadata(-1);
+		});
+		
+		assertEquals("Invalid ID", exception.getMessage());
 		
 	}
 }
