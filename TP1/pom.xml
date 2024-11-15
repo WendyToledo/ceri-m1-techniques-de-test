@@ -71,10 +71,10 @@
                 </execution>
             </executions>
             	<configuration>
-                	<configLocation>google_checks.xml</configLocation>
-               		 <failOnViolation>true</failOnViolation>
-               		  <outputFile>target/checkstyle-result.xml</outputFile>
-           	</configuration>
+                      <configLocation>src/main/resources/google_checks.xml</configLocation>
+                      <failOnViolation>true</failOnViolation>
+                      <outputFile>target/checkstyle-result.xml</outputFile>
+                  </configuration>
          </plugin>
         </plugins>
     </build>
