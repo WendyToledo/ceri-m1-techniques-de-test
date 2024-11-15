@@ -9,13 +9,16 @@ public class PokemonFactory implements IPokemonFactory {
 	}
 	@Override
 	public Pokemon createPokemon(int index, int cp, int hp, int dust, int candy) {
-		 try {
-	         	PokemonMetadata pokeMeta = metadata.getPokemonMetadata(index);
-        double iv = 0;
-        return new Pokemon(index, pokeMeta.getName(), pokeMeta.getAttack(), pokeMeta.getDefense(), pokeMeta.getStamina(), cp, hp, dust, candy, iv);
-		 } catch (PokedexException e) {
-	            throw new IllegalArgumentException("Index invalide: " + index, e);
+		try {
+	        PokemonMetadata pokeMeta = metadata.getPokemonMetadata(index);
+	        if (pokeMeta == null) {
+	            throw new IllegalArgumentException("Index invalide: " + index);
 	        }
+	        double iv = 0;
+	        return new Pokemon(index, pokeMeta.getName(), pokeMeta.getAttack(), pokeMeta.getDefense(), pokeMeta.getStamina(), cp, hp, dust, candy, iv);
+	    } catch (PokedexException e) {
+	        throw new IllegalArgumentException("Index invalide: " + index, e);
+	    }
 	}
 
 }
