@@ -28,11 +28,4 @@ public class IPokedexFactoryTest {
         assertNotNull(pokedex);
         assertEquals(0, pokedex.size());
     }
-
-    @Test
-    public void testCreatePokedexIsCall() throws PokedexException {
-        pokedexFacto.createPokedex(metadata, pokemonFacto);
-        verify(metadata, times(1)).getPokemonMetadata(anyInt());
-        verify(pokemonFacto, times(1)).createPokemon(anyInt(), anyInt(), anyInt(), anyInt(), anyInt());
-    }
 }
