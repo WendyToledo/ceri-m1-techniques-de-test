@@ -30,8 +30,9 @@ public class IPokedexFactoryTest {
     }
 
     @Test
-    public void testCreatePokedexIsCall() {
+    public void testCreatePokedexIsCall() throws PokedexException {
         pokedexFacto.createPokedex(metadata, pokemonFacto);
-        verify(pokedexFacto, times(1)).createPokedex(metadata, pokemonFacto);
+        verify(metadata, times(1)).getPokemonMetadata(anyInt());
+        verify(pokemonFacto, times(1)).createPokemon(anyInt(), anyInt(), anyInt(), anyInt(), anyInt());
     }
 }
