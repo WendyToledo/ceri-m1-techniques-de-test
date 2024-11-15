@@ -8,14 +8,14 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class IPokemonMetadataProviderTest{
 	
-	private IPokemonMetadataProvider pokemonMetadataProvider;
+	IPokemonMetadataProvider pokemonMetadataProvider;
 	
-	private PokemonMetadata bulbi;
+	PokemonMetadata bulbi;
 	
 	@BeforeEach
 	public void setup() {
 		
-		pokemonMetadataProvider = mock(IPokemonMetadataProvider.class);
+		pokemonMetadataProvider = new PokemonMetadataProvider(null);
 		
 		bulbi = new PokemonMetadata(0,"Bulbizarre", 126, 126, 90);
 	}
@@ -45,13 +45,15 @@ public class IPokemonMetadataProviderTest{
 	
 	@Test
 	public void testGetPokemonMetadataInvalidIndex() throws PokedexException{
-		when(pokemonMetadataProvider.getPokemonMetadata(-1)).thenThrow(new PokedexException("Invalid ID"));
-		
 		PokedexException exception = assertThrows(PokedexException.class, () -> {
-			 pokemonMetadataProvider.getPokemonMetadata(-1);
-		});
-		
-		assertEquals("Invalid ID", exception.getMessage());
+			pokemonMetadataProvider.getPokemonMetadata(-1);
+        });
+        assertEquals("Invalid Pokémon ID: -1", exception.getMessage());
+
+        exception = assertThrows(PokedexException.class, () -> {
+        	pokemonMetadataProvider.getPokemonMetadata(999);
+        });
+        assertEquals("Invalid Pokémon ID: 999", exception.getMessage());
 		
 	}
 }

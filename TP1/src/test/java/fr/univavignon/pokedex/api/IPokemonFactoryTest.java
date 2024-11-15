@@ -36,4 +36,17 @@ public class IPokemonFactoryTest {
         assertEquals(4000, poke.getDust());
         assertEquals(4, poke.getCandy());
     }
+    
+    @Test
+    public void testCreatePokemonInvalidId() {
+    	IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            pokemonFactory.createPokemon(-1, 613, 64, 4000, 4);
+        });
+        assertEquals("Index invalide: -1", exception.getMessage());
+
+        exception = assertThrows(IllegalArgumentException.class, () -> {
+            pokemonFactory.createPokemon(999, 613, 64, 4000, 4);
+        });
+        assertEquals("Index invalide: 999", exception.getMessage());
+    }
 }
