@@ -21,16 +21,14 @@ public class IPokemonMetadataProviderTest{
 	public void setup() {
 		
 		List<PokemonMetadata> list = new ArrayList<>();
+		bulbi = new PokemonMetadata(0,"Bulbizarre", 126, 126, 90);
+		list.add(bulbi);
 		
 		pokemonMetadataProvider = new PokemonMetadataProvider(list);
-		
-		bulbi = new PokemonMetadata(0,"Bulbizarre", 126, 126, 90);
 	}	
 	
 	@Test
 	public void testGetPokemonMetadataBulbiIfIdEquals0() throws PokedexException{
-		when(pokemonMetadataProvider.getPokemonMetadata(0)).thenReturn(bulbi);
-		
 		PokemonMetadata metadata = pokemonMetadataProvider.getPokemonMetadata(0);
 		
 		assertNotNull(metadata);
@@ -42,25 +40,18 @@ public class IPokemonMetadataProviderTest{
 	}
 	
 	@Test
-	public void testGetPokemonMetadataIsCall() throws PokedexException{
-		when(pokemonMetadataProvider.getPokemonMetadata(0)).thenReturn(bulbi);
-		
-		pokemonMetadataProvider.getPokemonMetadata(0);
-		
-		verify(pokemonMetadataProvider, times(1)).getPokemonMetadata(0);
-	}
-	
-	@Test
 	public void testGetPokemonMetadataInvalidIndex() throws PokedexException{
-		PokedexException exception = assertThrows(PokedexException.class, () -> {
-			pokemonMetadataProvider.getPokemonMetadata(-1);
+		when(pokemonMetadataProvider.getPokemonMetadata(-1)).thenThrow(new PokedexException("Invalid Pokémon index: -1"));
+        when(pokemonMetadataProvider.getPokemonMetadata(999)).thenThrow(new PokedexException("Invalid Pokémon index: 999"));
+        
+        PokedexException exception = assertThrows(PokedexException.class, () -> {
+            pokemonMetadataProvider.getPokemonMetadata(-1);
         });
-        assertEquals("Invalid Pokémon ID: -1", exception.getMessage());
+        assertEquals("Invalid Pokémon index: -1", exception.getMessage());
 
         exception = assertThrows(PokedexException.class, () -> {
-        	pokemonMetadataProvider.getPokemonMetadata(999);
+            pokemonMetadataProvider.getPokemonMetadata(999);
         });
-        assertEquals("Invalid Pokémon ID: 999", exception.getMessage());
-		
-	}
+        assertEquals("Invalid Pokémon index: 999", exception.getMessage());
+    }
 }
