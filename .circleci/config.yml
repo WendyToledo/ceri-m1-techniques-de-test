@@ -24,7 +24,7 @@ jobs:
 
       - run:
           name: Checkstyle
-          command: cd TP1 && mvn checkstyle:check
+          command: cd TP1 && mvn checkstyle:checkstyle
 
 workflows:
   version: 2
