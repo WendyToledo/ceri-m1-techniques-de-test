@@ -1,6 +1,6 @@
 package fr.univavignon.pokedex.api;
 
-import static org.junit.Assert.*;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class IPokedexTest{
         when(pokedex.addPokemon(bulbi)).thenReturn(0);
         when(pokedex.addPokemon(aqua)).thenReturn(1);
         
-        List<Pokemon> pokemons = new ArrayList<>();
+        List<Pokemon> pokemons = new ArrayList<Pokemon>();
         pokemons.add(bulbi);
         pokemons.add(aqua);
         when(pokedex.getPokemons()).thenReturn(pokemons);
@@ -74,7 +74,7 @@ public class IPokedexTest{
 			
 		 	Comparator<Pokemon> comparator = Comparator.comparingInt(Pokemon::getCp);
 
-	        List<Pokemon> sortedPokemons = new ArrayList<>();
+	        List<Pokemon> sortedPokemons = new ArrayList<Pokemon>();
 	        sortedPokemons.add(aqua);
 	        sortedPokemons.add(bulbi);
 	        
