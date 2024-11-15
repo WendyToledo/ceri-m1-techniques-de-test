@@ -8,10 +8,10 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class IPokemonTrainerFactoryTest {
 	
-	private IPokemonTrainerFactory factory;
+	IPokemonTrainerFactory factory;
 	
-	private IPokedexFactory pokeFacto;
-	private IPokedex poke;
+	IPokedexFactory pokeFacto;
+	IPokedex poke;
 	
 	@BeforeEach
 	public void setup() {
@@ -22,15 +22,15 @@ public class IPokemonTrainerFactoryTest {
 		poke = mock(IPokedex.class);
 		
 		when(pokeFacto.createPokedex(any(), any())).thenReturn(poke);
-	}
+	}	
 	
 	@Test
 	public void testCreateTrainer() {
 		String name = "Blue";
 		Team team = Team.INSTINCT;
 		
-		PokemonTrainer trainer = factory.createTrainer(name, team, pokeFacto);
-		when(factory.createTrainer(name, team, pokeFacto)).thenReturn(trainer);	
+		assertNotNull(pokeFacto);
+		assertNotNull(poke);
 		
 		PokemonTrainer createdTrainer = factory.createTrainer(name, team, pokeFacto);
 		
