@@ -1,6 +1,10 @@
 package fr.univavignon.pokedex.api;
 
 import static org.mockito.Mockito.*;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -10,15 +14,18 @@ public class IPokemonMetadataProviderTest{
 	
 	IPokemonMetadataProvider pokemonMetadataProvider;
 	
+	
 	PokemonMetadata bulbi;
 	
 	@BeforeEach
 	public void setup() {
 		
-		pokemonMetadataProvider = new PokemonMetadataProvider(null);
+		List<PokemonMetadata> list = new ArrayList<>();
+		
+		pokemonMetadataProvider = new PokemonMetadataProvider(list);
 		
 		bulbi = new PokemonMetadata(0,"Bulbizarre", 126, 126, 90);
-	}
+	}	
 	
 	@Test
 	public void testGetPokemonMetadataBulbiIfIdEquals0() throws PokedexException{
