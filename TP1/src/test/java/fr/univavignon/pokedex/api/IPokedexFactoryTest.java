@@ -5,22 +5,33 @@ import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.junit.jupiter.api.BeforeEach;
 
 public class IPokedexFactoryTest {
 	
+	@Mock
 	private IPokedexFactory pokedexFacto;
+	
+	@Mock
+    private IPokemonMetadataProvider metadata;
+	
+	@Mock
+    private IPokemonFactory pokemonFacto;
+	
+	
 	
 	@BeforeEach
 	public void setUp() {
-		 pokedexFacto = new PokedexFactory();
+		MockitoAnnotations.openMocks(this);
 	}
 	
 	@Test
 	public void testCreatePokedex() {
-		IPokemonMetadataProvider metadata = Mockito.mock(IPokemonMetadataProvider.class);
-		IPokemonFactory pokemonFacto = Mockito.mock(IPokemonFactory.class);
+		IPokedex ipokedex = mock(IPokedex.class);
+		when(pokedexFacto.createPokedex(metadata, pokemonFacto)).thenReturn(ipokedex);
+		
 		IPokedex pokedex = pokedexFacto.createPokedex(metadata, pokemonFacto);
 		
 		assertNotNull(pokedex);
@@ -29,8 +40,7 @@ public class IPokedexFactoryTest {
 	
 	@Test
 	public void testCreatePokedexIsCall(){
-		IPokemonMetadataProvider metadata = Mockito.mock(IPokemonMetadataProvider.class);
-		IPokemonFactory pokemonFacto = Mockito.mock(IPokemonFactory.class);
+		pokedexFacto.createPokedex(metadata, pokemonFacto);
 		verify(pokedexFacto, times(1)).createPokedex(metadata, pokemonFacto);
 	}
 }
