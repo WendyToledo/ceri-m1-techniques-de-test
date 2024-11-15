@@ -29,7 +29,7 @@ public class IPokemonFactoryTest {
 	@Test
 	public void testCreatePokemon() throws PokedexException {
 		
-	    when(pokemonFactory.createPokemon(eq(0), eq(613), eq(64), eq(4000), eq(4))).thenReturn(bulbi);
+	    when(pokemonFactory.createPokemon(eq(0), anyInt(), anyInt(), anyInt(), anyInt())).thenReturn(bulbi);
 	    
 	    Pokemon poke = pokemonFactory.createPokemon(0, 613, 64, 4000, 4);
 		
