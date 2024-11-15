@@ -9,19 +9,24 @@ import org.junit.jupiter.api.BeforeEach;
 public class IPokemonTrainerFactoryTest {
 	
 	IPokemonTrainerFactory factory;
-	
-	IPokedexFactory pokeFacto;
-	IPokedex poke;
+    IPokedexFactory pokeFacto;
+    IPokedex poke;
+    IPokemonMetadataProvider metadataProvider;
+    IPokemonFactory pokemonFactory;
 	
 	@BeforeEach
 	public void setup() {
 		
-		factory = new PokemonTrainerFactory();
-		
-		pokeFacto = mock(IPokedexFactory.class);
-		poke = mock(IPokedex.class);
-		
-		when(pokeFacto.createPokedex(any(), any())).thenReturn(poke);
+		metadataProvider = mock(IPokemonMetadataProvider.class);
+	    pokemonFactory = mock(IPokemonFactory.class);
+	    
+	    pokeFacto = mock(IPokedexFactory.class);
+        poke = mock(IPokedex.class);
+        
+        when(pokeFacto.createPokedex(metadataProvider, pokemonFactory)).thenReturn(poke);
+        
+        factory = new PokemonTrainerFactory();
+        
 	}	
 	
 	@Test
@@ -39,7 +44,6 @@ public class IPokemonTrainerFactoryTest {
 		assertEquals(team, createdTrainer.getTeam());
 		assertEquals(poke, createdTrainer.getPokedex());
 		
-		verify(pokeFacto).createPokedex(any(), any());
+		verify(pokeFacto).createPokedex(metadataProvider, pokemonFactory);
 	}
-
 }
