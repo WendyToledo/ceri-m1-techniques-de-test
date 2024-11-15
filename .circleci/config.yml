@@ -22,6 +22,10 @@ jobs:
           name: Upload coverage to Codecov
           command: bash <(curl -s https://codecov.io/bash)
 
+      - run:
+          name: Checkstyle
+          command: cd TP1 && mvn checkstyle:checkstyle
+
 workflows:
   version: 2
   sample-workflow:
