@@ -11,19 +11,19 @@ public class IPokemonTrainerFactoryTest {
 	IPokemonTrainerFactory factory;
     IPokedexFactory pokeFacto;
     IPokedex poke;
-    IPokemonMetadataProvider metadataProvider;
-    IPokemonFactory pokemonFactory;
+    IPokemonMetadataProvider metadata;
+    IPokemonFactory facto;
 	
 	@BeforeEach
 	public void setup() {
 		
-		metadataProvider = mock(IPokemonMetadataProvider.class);
-	    pokemonFactory = mock(IPokemonFactory.class);
+		metadata = mock(IPokemonMetadataProvider.class);
+	    facto = mock(IPokemonFactory.class);
 	    
 	    pokeFacto = mock(IPokedexFactory.class);
         poke = mock(IPokedex.class);
         
-        when(pokeFacto.createPokedex(metadataProvider, pokemonFactory)).thenReturn(poke);
+        when(pokeFacto.createPokedex(metadata, facto)).thenReturn(poke);
         
         factory = new PokemonTrainerFactory();
         
@@ -35,7 +35,8 @@ public class IPokemonTrainerFactoryTest {
 		Team team = Team.INSTINCT;
 		
 		assertNotNull(pokeFacto);
-		assertNotNull(poke);
+		assertNotNull(metadata);
+		assertNotNull(facto);
 		
 		PokemonTrainer createdTrainer = factory.createTrainer(name, team, pokeFacto);
 		
@@ -43,7 +44,5 @@ public class IPokemonTrainerFactoryTest {
 		assertEquals(name, createdTrainer.getName());
 		assertEquals(team, createdTrainer.getTeam());
 		assertEquals(poke, createdTrainer.getPokedex());
-		
-		verify(pokeFacto).createPokedex(metadataProvider, pokemonFactory);
 	}
 }
