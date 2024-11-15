@@ -3,8 +3,8 @@ package fr.univavignon.pokedex.api;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 public class IPokemonTrainerFactoryTest {
 	
@@ -12,7 +12,7 @@ public class IPokemonTrainerFactoryTest {
 	private IPokedexFactory pokeFacto;
 	private IPokedex poke;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		
 		factory = mock(IPokemonTrainerFactory.class);

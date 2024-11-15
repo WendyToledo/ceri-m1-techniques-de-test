@@ -3,8 +3,8 @@ package fr.univavignon.pokedex.api;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 public class IPokemonMetadataProviderTest{
 	
@@ -12,7 +12,7 @@ public class IPokemonMetadataProviderTest{
 	
 	private PokemonMetadata bulbi;
 	
-	@Before
+	@BeforeEach
 	public void setup() {
 		
 		pokemonMetadataProvider = mock(IPokemonMetadataProvider.class);
@@ -43,7 +43,7 @@ public class IPokemonMetadataProviderTest{
 		verify(pokemonMetadataProvider, times(1)).getPokemonMetadata(0);
 	}
 	
-	@Test(expected = PokedexException.class)
+	@Test
 	public void testGetPokemonMetadataInvalidIndex() throws PokedexException{
 		when(pokemonMetadataProvider.getPokemonMetadata(-1)).thenThrow(new PokedexException("Invalid ID"));
 		pokemonMetadataProvider.getPokemonMetadata(-1);

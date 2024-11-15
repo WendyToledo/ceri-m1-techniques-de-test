@@ -4,15 +4,15 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 public class IPokemonFactoryTest {
 	
 
 	private IPokemonFactory pokemonFactory;
 	
-	@Before
+	@BeforeEach
 	public void setUp() {
 		pokemonFactory = mock(IPokemonFactory.class);
 	}

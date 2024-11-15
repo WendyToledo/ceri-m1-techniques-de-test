@@ -7,15 +7,15 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
 
 public class IPokedexTest{
 	
 	private IPokedex pokedex;
 	private Pokemon aqua, bulbi;
 	
-	@Before
+	@BeforeEach
 	public void setup() throws PokedexException {
 		pokedex = mock(IPokedex.class);
 		
@@ -63,7 +63,7 @@ public class IPokedexTest{
 		
 	}
 	
-	 @Test(expected = PokedexException.class)
+	 @Test
 	    public void testGetPokemonInvalidId() throws PokedexException {
 	        when(pokedex.getPokemon(-1)).thenThrow(new PokedexException("Invalid ID"));
 	        pokedex.getPokemon(-1);
