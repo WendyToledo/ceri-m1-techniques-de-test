@@ -46,6 +46,12 @@ jobs:
             mvn javadoc:javadoc
 
       - run:
+          name: Install npm
+          command: |
+            sudo apt-get update
+            sudo apt-get install -y npm
+
+      - run:
           name: Publish Javadoc to GitHub Pages
           command: |
             cd TP1/target/site
