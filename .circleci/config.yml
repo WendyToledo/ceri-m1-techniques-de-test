@@ -39,13 +39,12 @@ jobs:
       - image: cimg/openjdk:11.0
     steps:
       - checkout
-      
       - run:
           name: Generate Javadoc
           command: |
             cd TP1
             mvn javadoc:javadoc
-            
+
       - run:
           name: Publish Javadoc to GitHub Pages
           command: |
@@ -59,10 +58,10 @@ jobs:
       - add_ssh_keys:
           fingerprints:
             - "SHA256:HMDNPYGkfbBQ4kJVkCGeZrnLFSAujMuIfwWS8E+THSk"
-
-          - run:
-              name: Deploy docs to gh-pages branch
-              command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
+      
+      - run:
+          name: Deploy docs to gh-pages branch
+          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
 
   checkstyle:
     docker:
