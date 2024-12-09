@@ -29,16 +29,35 @@ jobs:
           path: TP1/target/site/jacoco
           destination: jacoco-report
 
+      - persist_to_workspace:
+          root: .
+          paths:
+            - TP1/target/site/jacoco
+
+  generate-javadoc:
+    docker:
+      - image: cimg/openjdk:11.0
+    steps:
+      - checkout
       - run:
           name: Generate Javadoc
           command: |
             cd TP1
             mvn javadoc:javadoc
-
+      - run:
+          name: Publish Javadoc to GitHub Pages
+          command: |
+            cd TP1
+            mkdir -p docs
+            cp -r target/site/apidocs/* docs/
+            git config --global user.name "circleci"
+            git config --global user.email "circleci@example.com"
+            git add -A
+            git commit -m "Update Javadoc"
+            git push --force https://github.com/WendyToledo/ceri-m1-techniques-de-test.git HEAD:gh-pages
       - store_artifacts:
           path: TP1/target/site/apidocs
           destination: javadoc
-
       - persist_to_workspace:
           root: .
           paths:
@@ -49,39 +68,15 @@ jobs:
       - image: cimg/openjdk:11.0
     steps:
       - checkout
-
       - run:
           name: Run Checkstyle
           command: |
             cd TP1
             mvn checkstyle:checkstyle
-
       - store_artifacts:
           path: TP1/target/site/checkstyle.html
           destination: checkstyle-report
 
-  deploy-javadoc:
-    docker:
-      - image: cimg/openjdk:11.0
-    steps:
-      - checkout 
-
-      - run:
-          name: Install npm and gh-pages
-          command: |
-            sudo apt update
-            sudo apt install -y nodejs npm 
-            sudo apt install -y git
-            sudo npm install -g gh-pages
-
-      - run:
-          name: Deploy Javadoc to GitHub Pages
-          command: |
-            cd TP1/target/site/apidocs 
-            git init 
-            git config user.name "CircleCI"  
-            git config user.email "wendy.toledo.99@gmai.com" 
-            gh-pages -d .  
 workflows:
   version: 2
   build-and-check:
@@ -90,16 +85,15 @@ workflows:
           filters:
             branches:
               only: master
-      - checkstyle:
+      - generate-javadoc:
           requires:
             - build-and-test
           filters:
             branches:
               only: master
-      - deploy-javadoc:
+      - checkstyle:
           requires:
             - build-and-test
-            - checkstyle
           filters:
             branches:
               only: master
