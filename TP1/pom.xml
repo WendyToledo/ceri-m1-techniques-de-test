@@ -58,23 +58,19 @@
                     </execution>
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.0</version>
-                <configuration>
-                    <configLocation>config/checkstyle/checkstyle.xml</configLocation>
-                    <encoding>UTF-8</encoding>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.google.guava</groupId>
-                        <artifactId>guava</artifactId>
-                        <version>31.0.1-jre</version>
-                        <scope>provided</scope>
-                    </dependency>
-                </dependencies>
-            </plugin>
+           <plugin>
+                     <groupId>org.apache.maven.plugins</groupId>
+                     <artifactId>maven-checkstyle-plugin</artifactId>
+                     <version>3.1.1</version>
+                     <dependencies>
+                         <dependency>
+                             <groupId>com.google.guava</groupId>
+                             <artifactId>guava</artifactId>
+                             <version>30.1.1-jre</version>
+                             <scope>compile</scope> 
+                         </dependency>
+                     </dependencies>
+                 </plugin>
         </plugins>
     </build>
 
