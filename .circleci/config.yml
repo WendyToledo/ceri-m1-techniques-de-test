@@ -15,28 +15,27 @@ jobs:
           command: cd TP1 && mvn -B -DskipTests clean package
 
       - run:
-          name: Run Unit tests
+          name: Run Unit tests and Generate Coverage
           command: cd TP1 && mvn clean test jacoco:report
 
-      - run:
+      - codecov/upload:
           name: Upload coverage to Codecov
-          command: bash <(curl -s https://codecov.io/bash)
+          file: ./TP1/target/site/jacoco/jacoco.xml
 
       - run:
-          name: Build and run Checkstyle
-          command: mvn checkstyle:checkstyle
-        
-      - run:  
-          name: Upload Checkstyle report
-          uses: actions/upload-artifact@v3
-          with:
-            name: checkstyle-report
-            path: target/checkstyle/checkstyle.html
+          name: Build and Run Checkstyle
+          command: cd TP1 && mvn checkstyle:checkstyle
+
+      - persist_to_workspace:
+          root: TP1
+          paths:
+            - target/site
 
 workflows:
   version: 2
-  sample-workflow:
-    when:
-      branch: master
+  build-and-check:
     jobs:
-      - build-and-test
+      - build-and-test:
+          filters:
+            branches:
+              only: master
