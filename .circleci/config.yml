@@ -11,25 +11,29 @@ jobs:
       - checkout
 
       - run:
-          name: Navigate to project directory and build
-          command: cd TP1 && mvn -B -DskipTests clean package
+          name: Build the project
+          command: |
+            cd TP1
+            mvn -B -DskipTests clean package
 
       - run:
-          name: Run Unit tests and Generate Coverage
-          command: cd TP1 && mvn clean test jacoco:report
+          name: Run Unit Tests and Generate Coverage Report
+          command: |
+            cd TP1
+            mvn clean test jacoco:report
 
       - codecov/upload:
-          name: Upload coverage to Codecov
           file: ./TP1/target/site/jacoco/jacoco.xml
 
       - run:
-          name: Build and Run Checkstyle
-          command: cd TP1 && mvn checkstyle:checkstyle
+          name: Run Checkstyle
+          command: |
+            cd TP1
+            mvn checkstyle:checkstyle
 
-      - persist_to_workspace:
-          root: TP1
-          paths:
-            - target/site
+      - store_artifacts:
+          path: TP1/target/site/checkstyle.html
+          destination: checkstyle-report
 
 workflows:
   version: 2
