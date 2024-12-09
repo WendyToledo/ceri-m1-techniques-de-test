@@ -54,7 +54,7 @@ jobs:
             git config --global user.email "circleci@example.com"
             git add -A
             git commit -m "Update Javadoc"
-            git push --force https://github.com/WendyToledo/ceri-m1-techniques-de-test.git HEAD:gh-pages
+            git push --force https://x-access-token:${DOC_TOKEN}@github.com/WendyToledo/ceri-m1-techniques-de-test.git HEAD:gh-pages
       - store_artifacts:
           path: TP1/target/site/apidocs
           destination: javadoc
