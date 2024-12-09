@@ -63,22 +63,25 @@ jobs:
   deploy-javadoc:
     docker:
       - image: cimg/openjdk:11.0
-    steps:
+       steps:
+      - checkout 
+
       - run:
-          name: Install gh-pages tool
+          name: Install npm and gh-pages
           command: |
             sudo apt update
+            sudo apt install -y nodejs npm 
             sudo apt install -y git
-            npm install -g gh-pages
+            npm install -g gh-pages 
+
       - run:
           name: Deploy Javadoc to GitHub Pages
           command: |
-            cd /TP1/target/site/apidocs
-            git init
-            git config user.name "CircleCI"
-            git config user.email "wendy.toledo.99@gmail.com"
-            gh-pages -d .
-
+            cd TP1/target/site/apidocs 
+            git init 
+            git config user.name "CircleCI"  
+            git config user.email "wendy.toledo.99@gmai.com" 
+            gh-pages -d .  
 workflows:
   version: 2
   build-and-check:
