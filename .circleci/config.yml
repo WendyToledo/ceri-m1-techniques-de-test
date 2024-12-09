@@ -44,23 +44,24 @@ jobs:
           command: |
             cd TP1
             mvn javadoc:javadoc
+
       - run:
-          - run:
-              name: Publish Javadoc to GitHub Pages
-              command: |
-                cd TP1
-                mkdir -p docs
-                cp -r target/site/apidocs/* docs/
-                git config --global user.name "circleci"
-                git config --global user.email "circleci@example.com"
-                git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git
-                git add -A
-                git commit -m "Update Javadoc"
-                git push --force origin HEAD:gh-pages
+          name: Publish Javadoc to GitHub Pages
+          command: |
+            cd TP1
+            mkdir -p docs
+            cp -r target/site/apidocs/* docs/
+            git config --global user.name "circleci"
+            git config --global user.email "circleci@example.com"
+            git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git
+            git add -A
+            git commit -m "Update Javadoc"
+            git push --force origin HEAD:gh-pages
 
       - store_artifacts:
           path: TP1/target/site/apidocs
           destination: javadoc
+
       - persist_to_workspace:
           root: .
           paths:
