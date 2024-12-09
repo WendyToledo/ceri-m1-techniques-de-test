@@ -60,6 +60,7 @@ jobs:
             npm install -g --silent gh-pages@2.0.1
             git config user.email "ci-build@twendy.net"
             git config user.name "ci-build"
+            git remote set-url origin git@github.com:WendyToledo/ceri-m1-techniques-de-test.git
             
       - add_ssh_keys:
           fingerprints:
