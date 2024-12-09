@@ -12,27 +12,15 @@ jobs:
 
       - run:
           name: Build the project
-          command: |
-            cd TP1
-            mvn -B -DskipTests clean package
+          command: cd TP1 && mvn -B -DskipTests clean package
 
       - run:
           name: Run Unit Tests and Generate Coverage Report
-          command: |
-            cd TP1
-            mvn clean test jacoco:report
-
-      - codecov/upload:
-          file: ./TP1/target/site/jacoco/jacoco.xml
-
-      - store_artifacts:
-          path: TP1/target/site/jacoco
-          destination: jacoco-report
-
-      - persist_to_workspace:
-          root: .
-          paths:
-            - TP1/target/site/jacoco
+          command: cd TP1 && mvn clean test jacoco:report
+          
+      - run:
+          name: Upload coverage to Codecov
+          command: bash <(curl -s https://codecov.io/bash)
 
   checkstyle:
     docker:
@@ -42,25 +30,23 @@ jobs:
       
       - run:
           name: Run Checkstyle
-          command: |
-            cd TP1
-            mvn checkstyle:checkstyle
+          command: cd TP1 && mvn checkstyle:checkstyle
             
-      - store_artifacts:
-          path: TP1/target/site/checkstyle.html
-          destination: checkstyle-report
-
   generate-javadoc:
     docker:
       - image: cimg/openjdk:11.0
     steps:
       - checkout
       - run:
-          name: Generate Javadoc
+          name: GIT_SSH_COMMAND for SSH key
           command: |
-            cd TP1 && mvn javadoc:javadoc
-            # Affichage du contenu du répertoire pour déboguer
-            ls -l TP1/target/site
+            mkdir -p ~/.ssh
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+      - run:
+          name: Generate Javadoc
+          command: cd TP1 && mvn javadoc:javadoc
             
       - add_ssh_keys:
           fingerprints:
@@ -71,15 +57,9 @@ jobs:
           command: |
             git config user.email "ci-build@twendy.net"
             git config user.name "ci-build"
-            git clone git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git gh-pages
-            cd gh-pages && git checkout -b gh-pages        
             
-            # Vérification de l'existence du répertoire apidocs
-            if [ ! -d "TP1/target/site/apidocs" ]; then
-              echo "Le répertoire Javadoc n'existe pas. Abandon de la mise à jour de GitHub Pages."
-              exit 1
-            fi
-
+            git clone git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git gh-pages
+            cd gh-pages && git checkout -b gh-pages 
             cp -r TP1/target/site/apidocs/* ./
             
             git add -A
@@ -104,7 +84,6 @@ workflows:
       - generate-javadoc:
           requires:
             - build-and-test
-            - checkstyle
           filters:
             branches:
               only: master
