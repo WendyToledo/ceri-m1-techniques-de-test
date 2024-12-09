@@ -34,42 +34,6 @@ jobs:
           paths:
             - TP1/target/site/jacoco
 
-  generate-javadoc:
-    docker:
-      - image: cimg/openjdk:11.0
-    steps:
-      - checkout
-      - run:
-          name: Generate Javadoc
-          command: |
-            cd TP1
-            mvn javadoc:javadoc
-
-      - run:
-          name: Install npm
-          command: |
-            sudo apt-get update
-            sudo apt-get install -y npm
-
-      - run:
-          name: Publish Javadoc to GitHub Pages
-          command: |
-            cd TP1/target/site
-            mkdir -p docs
-            cp -r apidocs/* docs/
-            npm install -g --silent gh-pages@2.0.1
-            git config user.email "ci-build@twendy.net"
-            git config user.name "ci-build"
-            git remote set-url origin git@github.com:WendyToledo/ceri-m1-techniques-de-test.git
-            
-      - add_ssh_keys:
-          fingerprints:
-            - "SHA256:HMDNPYGkfbBQ4kJVkCGeZrnLFSAujMuIfwWS8E+THSk"
-      
-      - run:
-          name: Deploy docs to gh-pages branch
-          command: gh-pages --dotfiles --message "[skip ci] Updates" --dist docs/_build/html
-
   checkstyle:
     docker:
       - image: cimg/openjdk:11.0
@@ -86,6 +50,34 @@ jobs:
           path: TP1/target/site/checkstyle.html
           destination: checkstyle-report
 
+  generate-javadoc:
+    docker:
+      - image: cimg/openjdk:11.0
+    steps:
+      - checkout
+      - run:
+          name: Generate Javadoc
+          command: |
+            cd TP1 && mvn javadoc:javadoc
+            
+      - add_ssh_keys:
+          fingerprints:
+            - "SHA256:HMDNPYGkfbBQ4kJVkCGeZrnLFSAujMuIfwWS8E+THSk"
+
+      - run:
+          name: Publish Javadoc to GitHub Pages
+          command: |
+            git config user.email "ci-build@twendy.net"
+            git config user.name "ci-build"
+            git clone git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git gh-pages
+            cd gh-pages && git checkout -b gh-pages        
+            cp -r TP1/target/site/apidocs/* ./
+            
+            git add -A
+            git commit -m "[skip ci] Updated Javadoc"
+            git push origin gh-pages --force
+      
+
 workflows:
   version: 2
   build-and-check:
@@ -94,15 +86,16 @@ workflows:
           filters:
             branches:
               only: master
-      - generate-javadoc:
+      - checkstyle:
           requires:
             - build-and-test
           filters:
             branches:
               only: master
-      - checkstyle:
+      - generate-javadoc:
           requires:
             - build-and-test
+            - checkstyle
           filters:
             branches:
               only: master
