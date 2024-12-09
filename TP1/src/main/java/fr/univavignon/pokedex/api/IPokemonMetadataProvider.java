@@ -10,7 +10,7 @@ public interface IPokemonMetadataProvider {
 
 	/**
 	 * Retrieves and returns the metadata for the pokemon
-	 * denoted by the given <tt>index</tt>.
+	 * denoted by the given {@code index}.
 	 * 
 	 * @param index Index of the pokemon to retrieve metadata for.
 	 * @return Metadata of the pokemon.
