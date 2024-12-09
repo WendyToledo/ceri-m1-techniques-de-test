@@ -9,15 +9,12 @@ jobs:
       - image: cimg/openjdk:11.0
     steps:
       - checkout
-
       - run:
           name: Build the project
           command: cd TP1 && mvn -B -DskipTests clean package
-
       - run:
           name: Run Unit Tests and Generate Coverage Report
           command: cd TP1 && mvn clean test jacoco:report
-          
       - run:
           name: Upload coverage to Codecov
           command: bash <(curl -s https://codecov.io/bash)
@@ -27,11 +24,10 @@ jobs:
       - image: cimg/openjdk:11.0
     steps:
       - checkout
-      
       - run:
           name: Run Checkstyle
           command: cd TP1 && mvn checkstyle:checkstyle
-            
+
   generate-javadoc:
     docker:
       - image: cimg/openjdk:11.0
@@ -48,17 +44,27 @@ jobs:
       - run:
           name: Publish Javadoc to GitHub Pages
           command: |
+            # Configurer les informations Git
             git config user.email "ci-build@twendy.net"
             git config user.name "ci-build"
             
+            # Cloner le dépôt et vérifier la branche
             git clone git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git gh-pages
-            cd gh-pages && git checkout -b gh-pages 
-            cp -r TP1/target/site/apidocs/* ./
-            
+            cd gh-pages
+            git checkout -b gh-pages
+
+            # Vérifier si le répertoire Javadoc existe avant de le copier
+            if [ -d "../TP1/target/site/apidocs" ]; then
+              cp -r ../TP1/target/site/apidocs/* ./
+            else
+              echo "Javadoc directory not found. Exiting."
+              exit 1
+            fi
+
+            # Ajouter les changements, commettre et pousser
             git add -A
             git commit -m "[skip ci] Updated Javadoc"
             git push origin gh-pages --force
-            
 
 workflows:
   version: 2
