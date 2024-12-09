@@ -64,8 +64,6 @@ jobs:
     docker:
       - image: cimg/openjdk:11.0
     steps:
-      - attach_workspace:
-          at: /workspace
       - run:
           name: Install gh-pages tool
           command: |
@@ -75,7 +73,7 @@ jobs:
       - run:
           name: Deploy Javadoc to GitHub Pages
           command: |
-            cd /workspace/TP1/target/site/apidocs
+            cd /TP1/target/site/apidocs
             git init
             git config user.name "CircleCI"
             git config user.email "wendy.toledo.99@gmail.com"
