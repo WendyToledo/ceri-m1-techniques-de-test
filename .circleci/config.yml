@@ -63,7 +63,7 @@ jobs:
   deploy-javadoc:
     docker:
       - image: cimg/openjdk:11.0
-       steps:
+    steps:
       - checkout 
 
       - run:
