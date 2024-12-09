@@ -48,9 +48,9 @@ jobs:
       - run:
           name: Publish Javadoc to GitHub Pages
           command: |
-            cd TP1/target/site/apidocs
+            cd TP1/target/site
             mkdir -p docs
-            cp -r * docs/
+            cp -r apidocs/* docs/
             npm install -g --silent gh-pages@2.0.1
             git config user.email "ci-build@twendy.net"
             git config user.name "ci-build"
