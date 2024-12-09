@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   codecov: codecov/codecov@4.0.1
-  gh-pages: atlassian/gh-pages@1.0.0 
 
 jobs:
   build-and-test:
@@ -79,7 +78,7 @@ jobs:
             cd /workspace/TP1/target/site/apidocs
             git init
             git config user.name "CircleCI"
-            git config user.email "ci@example.com"
+            git config user.email "wendy.toledo.99@gmail.com"
             gh-pages -d .
 
 workflows:
