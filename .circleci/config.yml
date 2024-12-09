@@ -44,21 +44,19 @@ jobs:
       - run:
           name: Publish Javadoc to GitHub Pages
           command: |
-            git config user.email "ci-build@twendy.net"
-            git config user.name "ci-build"
+            # Configure global user details for Git
+            git config --global user.email "ci-build@twendy.net"
+            git config --global user.name "ci-build"
             
-            # Clone the gh-pages branch
+            # Clone the repository
             git clone git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git gh-pages
             cd gh-pages
-            git checkout -b gh-pages 
-      
-            # Copy Javadoc to the gh-pages branch
+            git checkout -b gh-pages
             cp -r TP1/target/site/apidocs/* ./
-      
-            # Commit and push
             git add -A
             git commit -m "[skip ci] Updated Javadoc"
             git push origin gh-pages --force
+
 
 workflows:
   version: 2
