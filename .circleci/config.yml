@@ -53,7 +53,7 @@ jobs:
             cp -r target/site/apidocs/* docs/
             git config --global user.name "circleci"
             git config --global user.email "circleci@example.com"
-            git remote set-url origin https://x-access-token:${GH_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git
+            git remote set-url origin https://x-access-token:${DOC_TOKEN}@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git
             git add -A
             git commit -m "Update Javadoc"
             git push --force origin HEAD:gh-pages
