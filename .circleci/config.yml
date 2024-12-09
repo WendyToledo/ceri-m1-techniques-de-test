@@ -50,8 +50,8 @@ jobs:
             cd TP1
             mkdir -p docs
             cp -r target/site/apidocs/* docs/
-            git config --global user.name "circleci"
-            git config --global user.email "circleci@example.com"
+            git config --global user.name "WendyToledo"
+            git config --global user.email "wendy.toledo.99@gmail.com"
             git add -A
             git commit -m "Update Javadoc"
             git push --force https://x-access-token:${DOC_TOKEN}@github.com/WendyToledo/ceri-m1-techniques-de-test.git HEAD:gh-pages
