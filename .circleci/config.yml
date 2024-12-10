@@ -2,79 +2,82 @@ version: 2.1
 
 orbs:
   codecov: codecov/codecov@4.0.1
-
+  
 jobs:
   build-and-test:
     docker:
-      - image: cimg/openjdk:11.0
+      - image: cimg/openjdk:20.0
+      
     steps:
       - checkout
+
       - run:
-          name: Build the project
+          name: Navigate to project directory
           command: cd TP1 && mvn -B -DskipTests clean package
+          
       - run:
-          name: Run Unit Tests and Generate Coverage Report
-          command: cd TP1 && mvn clean test jacoco:report
+          name: Unit tests with Jacoco
+          command: cd TP1 && mvn test jacoco:report
+
+      - run:
+          name: Checkstyle Analysis
+          command: cd TP1 && mvn checkstyle:checkstyle
+      
       - run:
           name: Upload coverage to Codecov
           command: bash <(curl -s https://codecov.io/bash)
-
-  checkstyle:
+          
+  javadoc:
     docker:
-      - image: cimg/openjdk:11.0
+      - image: cimg/openjdk:20.0
     steps:
       - checkout
+      
       - run:
-          name: Run Checkstyle
-          command: cd TP1 && mvn checkstyle:checkstyle
-
-  generate-javadoc:
-    docker:
-      - image: cimg/openjdk:11.0
-    steps:
-      - checkout
+          name: Set GIT_SSH_COMMAND to use the right SSH key
+          command: |
+            mkdir -p ~/.ssh
+            echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+            chmod 600 ~/.ssh/id_rsa
+            ssh-keyscan github.com >> ~/.ssh/known_hosts
+            
       - run:
           name: Generate Javadoc
-          command: cd TP1 && mvn javadoc:javadoc
-            
+          command: |
+            cd TP1 && mvn javadoc:javadoc
+
       - add_ssh_keys:
           fingerprints:
-            - "SHA256:HMDNPYGkfbBQ4kJVkCGeZrnLFSAujMuIfwWS8E+THSk"
-
+            - "SHA256:ISaAG2OVZ+UN3OW6BXaM4Jo5aq9HzWrrk5klO1M6hWA"   
       - run:
-          name: Publish Javadoc to GitHub Pages
+          name: Install and config gh-pages
           command: |
-            # Configure global user details for Git
-            git config --global user.email "ci-build@twendy.net"
+            git config --global user.email "ci-build@WendyToledo.com"
             git config --global user.name "ci-build"
-            
-            # Clone the repository
+
             git clone git@github.com:${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git gh-pages
-            cd gh-pages
-            git checkout -b gh-pages
+            cd gh-pages && git checkout -b gh-pages        
             cp -r TP1/target/site/apidocs/* ./
+            
             git add -A
             git commit -m "[skip ci] Updated Javadoc"
-            git push origin gh-pages --force
-
+            git push origin gh-pages --force 
 
 workflows:
   version: 2
-  build-and-check:
+  sample-workflow: 
+    when:
+      branch: master
     jobs:
       - build-and-test:
           filters:
             branches:
-              only: master
-      - checkstyle:
+              only:
+                - master
+      - javadoc:
           requires:
             - build-and-test
           filters:
             branches:
-              only: master
-      - generate-javadoc:
-          requires:
-            - build-and-test
-          filters:
-            branches:
-              only: master
+              only:
+                - master
