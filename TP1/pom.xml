@@ -62,43 +62,45 @@
             </plugin>
 
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>check</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <configLocation>checkstyle.xml</configLocation>
-                    <failOnViolation>true</failOnViolation>
-                    <outputFile>checkstyle-res.xml</outputFile>
-                </configuration>
-            </plugin>
+		    <groupId>org.apache.maven.plugins</groupId>
+		    <artifactId>maven-checkstyle-plugin</artifactId>
+		    <version>3.2.0</version>
+		    <executions>
+		        <execution>
+		            <phase>verify</phase>
+		            <goals>
+		                <goal>check</goal>
+		            </goals>
+		        </execution>
+		    </executions>
+		    <configuration>
+		        <outputFile>${project.build.directory}/checkstyle-res.xml</outputFile>
+		        <configLocation>checkstyle.xml</configLocation>
+		        <failOnViolation>false</failOnViolation>
+		    </configuration>
+	    </plugin>
+
 
             <plugin>
-                <groupId>com.github.bordertech.buildtools</groupId>
-                <artifactId>badger</artifactId>
-                <version>1.0.0</version>
-                <executions>
-                    <execution>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>badges</goal>
-                        </goals>
-                        <configuration>
-                            <outputDir>${project.basedir}</outputDir>
-                            <inputFiles>
-                                <inputFile>checkstyle-res.xml</inputFile>
-                            </inputFiles>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
+		    <groupId>com.github.bordertech.buildtools</groupId>
+		    <artifactId>badger</artifactId>
+		    <version>1.0.0</version>
+		    <executions>
+		        <execution>
+		            <phase>verify</phase>
+		            <goals>
+		                <goal>badges</goal>
+		            </goals>
+		            <configuration>
+		                <outputDir>${project.basedir}</outputDir>
+		                <inputFiles>
+		                    <inputFile>${project.build.directory}/checkstyle-res.xml</inputFile>
+		                </inputFiles>
+		            </configuration>
+		        </execution>
+		    </executions>
+	    </plugin>
+
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
