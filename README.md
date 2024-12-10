@@ -46,7 +46,7 @@ CircleCI: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/WendyToledo/c
 
 CodeCov: [![codecov](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test/graph/badge.svg?token=881YE3LUFU)](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test)
 
-Checkstyle: ![Checkstyle Badge](https://img.shields.io/badge/Checkstyle-passed-green)
+Checkstyle: ![Checkstyle Badge](./checkstyle-badge.svg)
 
 
 
