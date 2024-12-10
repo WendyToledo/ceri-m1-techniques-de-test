@@ -48,8 +48,6 @@ CodeCov: [![codecov](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de
 
 Checkstyle: ![Checkstyle Badge](https://img.shields.io/badge/Checkstyle-passed-green)
 
-JavaDoc: [![Javadoc](https://img.shields.io/badge/javadoc-latest-blue)](https://WendyToledo.github.io/ceri-m1-techniques-de-test)
-
 
 
 
