@@ -75,30 +75,13 @@ http://maven.apache.org/maven-v4_0_0.xsd"
                 </execution>
             </executions>
             	<configuration>
-                	<configLocation>checkstyle.xml</configLocation>
-               		 <failOnViolation>true</failOnViolation>
-               		  <outputFile>${project.build.directory}/checkstyle-res.xml</outputFile>
-           		</configuration>
-       	   </plugin>
-
-           <plugin>
-            	<groupId>com.github.bordertech.buildtools</groupId>
-            	<artifactId>badger</artifactId>
-            	<version>1.0.0</version>
-            	<executions>
-                <execution>
-                    <phase>verify</phase>
-                    <goals>
-                        <goal>badges</goal>
-                    </goals>
-            	<configuration>
-                	<outputDir>${project.basedir}</outputDir>
-                	 <inputFiles>
-               		  <inputFile>${project.build.directory}/checkstyle-res.xml</inputFile>
-           			 </inputFiles>
-           		</configuration>
-           		</execution>
-            </executions>
+                	<configLocation>checkstyle.xml</configLocation> 
+        		<encoding>UTF-8</encoding>
+       			<consoleOutput>true</consoleOutput>
+        		<failOnViolation>true</failOnViolation> 
+        		<outputFile>checkstyle-res.xml</outputFile>
+        		<outputFileFormat>xml</outputFileFormat>
+           	</configuration>
        	   </plugin>
 
            <plugin>
