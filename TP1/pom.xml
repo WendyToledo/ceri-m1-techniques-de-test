@@ -90,7 +90,7 @@
             	<configuration>
                 	<outputDir>${project.basedir}</outputDir>
                 	 <inputFiles>
-               		  <inputFile>target/checkstyle-result.xml</inputFile>
+               		  <inputFile>target/checkstyle-res.xml</inputFile>
            			 </inputFiles>
            		</configuration>
            		</execution>
