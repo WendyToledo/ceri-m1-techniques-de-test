@@ -43,7 +43,7 @@ jobs:
             cd TP1
             git config --global user.email "ci-build@WendyToledo.com"
             git config --global user.name "ci-build"
-            git iniy
+            git init
             git remote remove origin || true
             git remote add origin https://$GH_TOKEN@github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_PROJECT_REPONAME}.git
             git fetch origin || true
