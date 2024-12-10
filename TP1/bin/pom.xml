@@ -138,11 +138,5 @@ http://maven.apache.org/maven-v4_0_0.xsd"
         <artifactId>mockito-junit-jupiter</artifactId>
         <version>4.0.0</version>
 	</dependency>
-	
-	<dependency>
-		<groupId>org.apache.commons</groupId>
-		<artifactId>commons-collections4</artifactId>
-		<version>4.0</version>
-	</dependency>
     </dependencies>
 </project>

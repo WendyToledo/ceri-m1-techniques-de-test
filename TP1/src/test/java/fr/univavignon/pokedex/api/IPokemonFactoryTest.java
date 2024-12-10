@@ -9,7 +9,8 @@ import org.junit.jupiter.api.BeforeEach;
 
 public class IPokemonFactoryTest {
     
-    IPokemonFactory pokemonFactory;
+    IPokemonFactory pokemonFactory;  
+    IPokemonFactory rocketPokemonFactory;
     IPokemonMetadataProvider metadata;
     Pokemon bulbi;
     
@@ -18,6 +19,7 @@ public class IPokemonFactoryTest {
         metadata = mock(IPokemonMetadataProvider.class);
         bulbi = new Pokemon(0, "Bulbizarre", 126, 126, 90, 613, 64, 400, 4, 56);
         pokemonFactory = new PokemonFactory(metadata);
+        rocketPokemonFactory = new RocketPokemonFactory();
     }
 
     @Test
@@ -35,6 +37,21 @@ public class IPokemonFactoryTest {
         assertEquals(64, poke.getHp());
         assertEquals(4000, poke.getDust());
         assertEquals(4, poke.getCandy());
+
+    }
+    
+    @Test
+    public void testRocketCreatePokemon() throws PokedexException {
+        Pokemon poke = rocketPokemonFactory.createPokemon(1, 613, 64, 4000, 4);
+        
+        assertNotNull(poke);
+        assertEquals(1, poke.getIndex());
+        assertEquals("Bulbasaur", poke.getName());
+        assertEquals(613, poke.getCp());
+        assertEquals(64, poke.getHp());
+        assertEquals(4000, poke.getDust());
+        assertEquals(4, poke.getCandy());
+        assertEquals(1, poke.getIv());
     }
     
     @Test
@@ -46,7 +63,23 @@ public class IPokemonFactoryTest {
 
         exception = assertThrows(IllegalArgumentException.class, () -> {
             pokemonFactory.createPokemon(999, 613, 64, 4000, 4);
+            
         });
         assertEquals("Index invalide: 999", exception.getMessage());
+    }
+    
+    @Test
+    public void testRocketCreatePokemonInvalidId() {
+    	Pokemon poke = rocketPokemonFactory.createPokemon(48, 613, 64, 4000, 4);
+    	
+    	assertNotNull(poke);
+        assertEquals(48, poke.getIndex());
+        assertEquals("MISSINGNO", poke.getName());
+        assertEquals(613, poke.getCp());
+        assertEquals(64, poke.getHp());
+        assertEquals(4000, poke.getDust());
+        assertEquals(4, poke.getCandy());
+        assertEquals(1, poke.getIv());
+    	
     }
 }
