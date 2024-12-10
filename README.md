@@ -46,7 +46,7 @@ CircleCI: [![CircleCI](https://dl.circleci.com/status-badge/img/gh/WendyToledo/c
 
 CodeCov: [![codecov](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test/graph/badge.svg?token=881YE3LUFU)](https://codecov.io/github/WendyToledo/ceri-m1-techniques-de-test)
 
-Checkstyle: ![Checkstyle](https://img.shields.io/badge/Checkstyle-Passing-brightgreen)
+Checkstyle: ![Checkstyle Badge](https://github.com/WendyToledo/ceri-m1-techniques-de-test/raw/master/TP1/checkstyle-res.svg)
 
 JavaDoc: [![Javadoc](https://img.shields.io/badge/javadoc-latest-blue)](https://WendyToledo.github.io/ceri-m1-techniques-de-test)
 
