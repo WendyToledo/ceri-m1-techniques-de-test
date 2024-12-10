@@ -107,14 +107,16 @@
                 <artifactId>maven-javadoc-plugin</artifactId>
                 <version>3.4.1</version>
                 <executions>
-                <execution>
-					<id>attach-javadocs</id>
-					<phase>package</phase>
-                    <goals>
-                        <goal>javadoc</goal>
-                    </goals>
-                </execution>
+	                <execution>
+				<phase>package</phase>
+	                    	<goals>
+	                       		<goal>javadoc</goal>
+	                   	</goals>
+	                </execution>
                 </executions>
+		<configuration>
+        		<reportOutputDirectory>${project.build.directory}/target/site/apidocs</reportOutputDirectory>
+    		</configuration>
             </plugin>
 
         </plugins>
