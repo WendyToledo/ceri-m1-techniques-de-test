@@ -76,7 +76,7 @@
                 <configuration>
                     <configLocation>checkstyle.xml</configLocation>
                     <failOnViolation>true</failOnViolation>
-                    <outputFile>target/checkstyle-res.xml</outputFile>
+                    <outputFile>checkstyle-res.xml</outputFile>
                 </configuration>
             </plugin>
 
@@ -93,7 +93,7 @@
                         <configuration>
                             <outputDir>${project.basedir}</outputDir>
                             <inputFiles>
-                                <inputFile>target/checkstyle-res.xml</inputFile>
+                                <inputFile>checkstyle-res.xml</inputFile>
                             </inputFiles>
                         </configuration>
                     </execution>
