@@ -77,7 +77,7 @@ http://maven.apache.org/maven-v4_0_0.xsd"
             	<configuration>
                 	<configLocation>checkstyle.xml</configLocation>
                		 <failOnViolation>true</failOnViolation>
-               		  <outputFile>checkstyle-res.xml</outputFile>
+               		  <outputFile>${project.build.directory}/checkstyle-res.xml</outputFile>
            		</configuration>
        	   </plugin>
 
@@ -94,7 +94,7 @@ http://maven.apache.org/maven-v4_0_0.xsd"
             	<configuration>
                 	<outputDir>${project.basedir}</outputDir>
                 	 <inputFiles>
-               		  <inputFile>checkstyle-res.xml</inputFile>
+               		  <inputFile>${project.build.directory}/checkstyle-res.xml</inputFile>
            			 </inputFiles>
            		</configuration>
            		</execution>
